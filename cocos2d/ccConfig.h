@@ -56,12 +56,15 @@
 #ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
 /** @def CC_FONT_LABEL_SUPPORT
  If enabled, FontLabel will be used to render .ttf files.
- If the .ttf file is not found, then it will use the standard CCFont class
- If disabled, the standard CCFont class will be used.
+ If the .ttf file is not found, then it will use the standard UIFont class
+ If disabled, the standard UIFont class will be used.
  
- To enable set it to a value different than 0. Enabled by default.
+ To enable set it to a value different than 0. Disabled by default.
+ 
+ Warning: If you enable, it will slow down the creation of fonts when iOS >= 4.0
  */
-#define CC_FONT_LABEL_SUPPORT	1
+#define CC_FONT_LABEL_SUPPORT	0
+
 #elif defined(__MAC_OS_X_VERSION_MAX_ALLOWED)
 #define CC_FONT_LABEL_SUPPORT	0
 #endif
@@ -125,7 +128,7 @@
 #define CC_SPRITEBATCHNODE_RENDER_SUBPIXEL	1
 
 
-#if defined(__ARM_NEON__) || defined(TARGET_IPHONE_SIMULATOR) || defined(__MAC_OS_X_VERSION_MAX_ALLOWED)
+#if defined(__ARM_NEON__) || TARGET_IPHONE_SIMULATOR || defined(__MAC_OS_X_VERSION_MAX_ALLOWED)
 /** @def CC_USES_VBO
  If enabled, batch nodes (texture atlas and particle system) will use VBO instead of vertex list (VBO is recommended by Apple)
  

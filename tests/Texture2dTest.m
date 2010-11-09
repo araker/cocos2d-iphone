@@ -32,6 +32,8 @@ static NSString *transitions[] = {
 	@"TexturePVRRGBA8888",
 	@"TexturePVRBGRA8888",
 	@"TexturePVRRGBA4444",
+	@"TexturePVRRGBA4444GZ",
+	@"TexturePVRRGBA4444CCZ",
 	@"TexturePVRRGBA5551",
 	@"TexturePVRRGB565",
 	@"TexturePVRA8",
@@ -592,9 +594,12 @@ Class restartAction()
 	CGSize s = [[CCDirector sharedDirector] winSize];
 	
 	CCSprite *img = [CCSprite spriteWithFile:@"test_image_bgra8888.pvr"];
-	img.position = ccp( s.width/2.0f, s.height/2.0f);
-	[self addChild:img];
-	
+	if( img ) {
+		img.position = ccp( s.width/2.0f, s.height/2.0f);
+		[self addChild:img];
+	} else {
+		NSLog(@"BGRA8888 images are not supported");
+	}
 }
 
 -(NSString *) title
@@ -651,6 +656,67 @@ Class restartAction()
 	return @"PVR + RGBA 4444 Test";
 }
 @end
+
+#pragma mark -
+#pragma mark TexturePVR RGBA4444GZ
+
+// Image generated using PVRTexTool:
+// http://www.imgtec.com/powervr/insider/powervr-pvrtextool.asp
+
+@implementation TexturePVRRGBA4444GZ
+-(void) onEnter
+{
+	[super onEnter];
+	CGSize s = [[CCDirector sharedDirector] winSize];
+	
+	CCSprite *img = [CCSprite spriteWithFile:@"test_image_rgba4444.pvr.gz"];
+	img.position = ccp( s.width/2.0f, s.height/2.0f);
+	[self addChild:img];
+	
+}
+
+-(NSString *) title
+{
+	return @"PVR + RGBA 4444 + GZ Test";
+}
+
+-(NSString *) subtitle
+{
+	return @"This is a gzip PVR image";
+}
+
+@end
+
+#pragma mark -
+#pragma mark TexturePVR RGBA4444CCZ
+
+// Image generated using PVRTexTool:
+// http://www.imgtec.com/powervr/insider/powervr-pvrtextool.asp
+
+@implementation TexturePVRRGBA4444CCZ
+-(void) onEnter
+{
+	[super onEnter];
+	CGSize s = [[CCDirector sharedDirector] winSize];
+	
+	CCSprite *img = [CCSprite spriteWithFile:@"test_image_rgba4444.pvr.ccz"];
+	img.position = ccp( s.width/2.0f, s.height/2.0f);
+	[self addChild:img];
+	
+}
+
+-(NSString *) title
+{
+	return @"PVR + RGBA 4444 + CCZ Test";
+}
+
+-(NSString *) subtitle
+{
+	return @"This is a ccz PVR image";
+}
+
+@end
+
 
 #pragma mark -
 #pragma mark TexturePVR RGB565
@@ -1565,10 +1631,10 @@ Class restartAction()
 	// Sets landscape mode
 	[director setDeviceOrientation:kCCDeviceOrientationLandscapeLeft];
 	
-	// Enables High Res mode on iPhone 4 and maintains low res on all other devices
-	if ([UIScreen instancesRespondToSelector:@selector(scale)])
-		[director setContentScaleFactor:[[UIScreen mainScreen] scale]];
-
+	// Enables High Res mode (Retina Display) on iPhone 4 and maintains low res on all other devices
+	if( ! [director enableRetinaDisplay:YES] )
+		CCLOG(@"Retina Display Not supported");
+	
 	// Turn on display FPS
 	[director setDisplayFPS:YES];
 	

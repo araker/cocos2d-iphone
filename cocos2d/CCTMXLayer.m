@@ -68,6 +68,7 @@
 	
 	// XXX: updateTransform will update the textureAtlas too using updateQuad.
 	// XXX: so, it should be AFTER the insertQuad
+	[sprite setDirty:YES];
 	[sprite updateTransform];
 }
 
@@ -390,6 +391,7 @@
 	unsigned int indexForZ = [self atlasIndexForExistantZ:z];
 
 	[reusedTile_ setAtlasIndex:indexForZ];
+	[reusedTile_ setDirty:YES];
 	[reusedTile_ updateTransform];
 	tiles_[z] = gid;
 	
@@ -496,10 +498,9 @@ int compareInts (const void * a, const void * b)
 	}
 }
 
--(id) addChild: (CCNode*)node z:(int)z tag:(int)tag
+-(void) addChild: (CCNode*)node z:(int)z tag:(int)tag
 {
 	NSAssert(NO, @"addChild: is not supported on CCTMXLayer. Instead use setTileGID:at:/tileAt:");
-	return nil;
 }
 
 -(void) removeChild:(CCSprite*)sprite cleanup:(BOOL)cleanup

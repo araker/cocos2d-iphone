@@ -222,7 +222,6 @@
 
 -(NSData*)getUIImageAsDataFromBuffer:(int) format
 {
-	
 	NSAssert(pixelFormat_ == kCCTexture2DPixelFormat_RGBA8888,@"only RGBA8888 can be saved as image");
 	
 	CGSize s = [texture_ contentSizeInPixels];
@@ -264,9 +263,9 @@
 		free(buffer);
 		//data frees buffer when it is deallocated
 		data = [NSData dataWithBytesNoCopy:pixels length:myDataLength];
-	}
-	else 
-	{
+		
+	} else {
+		
 		/*
 		 CGImageCreate(size_t width, size_t height,
 		 size_t bitsPerComponent, size_t bitsPerPixel, size_t bytesPerRow,
@@ -290,10 +289,14 @@
 		CGColorSpaceRelease(colorSpaceRef);
 		CGDataProviderRelease(provider);
 		
+		
+		
 		if (format == kCCImageFormatPNG)
 			data = UIImagePNGRepresentation(image);
 		else
 			data = UIImageJPEGRepresentation(image, 1.0f);
+		
+		[image release];
 		
 		free(pixels);
 		free(buffer);
