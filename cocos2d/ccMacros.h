@@ -243,6 +243,30 @@ do {															\
 	CGRectMake( (__points__).origin.x * CC_CONTENT_SCALE_FACTOR(), (__points__).origin.y * CC_CONTENT_SCALE_FACTOR(),	\
 			(__points__).size.width * CC_CONTENT_SCALE_FACTOR(), (__points__).size.height * CC_CONTENT_SCALE_FACTOR() )
 
+/** @def CC_POINT_PIXELS_TO_POINTS
+ Converts a rect in pixels to points
+ */
+#define CC_POINT_PIXELS_TO_POINTS(__pixels__)																		\
+CGPointMake( (__pixels__).x / CC_CONTENT_SCALE_FACTOR(), (__pixels__).y / CC_CONTENT_SCALE_FACTOR())
+
+/** @def CC_POINT_POINTS_TO_PIXELS
+ Converts a rect in points to pixels
+ */
+#define CC_POINT_POINTS_TO_PIXELS(__points__)																		\
+CGPointMake( (__points__).x * CC_CONTENT_SCALE_FACTOR(), (__points__).y * CC_CONTENT_SCALE_FACTOR())
+
+/** @def CC_POINT_PIXELS_TO_POINTS
+ Converts a rect in pixels to points
+ */
+#define CC_SIZE_PIXELS_TO_POINTS(__size_in_pixels__)																		\
+CGSizeMake( (__size_in_pixels__).width / CC_CONTENT_SCALE_FACTOR(), (__size_in_pixels__).height / CC_CONTENT_SCALE_FACTOR())
+
+/** @def CC_POINT_POINTS_TO_PIXELS
+ Converts a rect in points to pixels
+ */
+#define CC_SIZE_POINTS_TO_PIXELS(__size_in_points__)																		\
+CGSizeMake( (__size_in_points__).width * CC_CONTENT_SCALE_FACTOR(), (__size_in_points__).height * CC_CONTENT_SCALE_FACTOR())
+
 #elif defined(__MAC_OS_X_VERSION_MAX_ALLOWED)
 
 /*****************************/
@@ -252,5 +276,9 @@ do {															\
 #define CC_CONTENT_SCALE_FACTOR() 1
 #define CC_RECT_PIXELS_TO_POINTS(__pixels__) __pixels__
 #define CC_RECT_POINTS_TO_PIXELS(__points__) __points__
+#define CC_SIZE_PIXELS_TO_POINTS(__pixels__) __pixels__
+#define CC_SIZE_POINTS_TO_PIXELS(__points__) __points__
+#define CC_POINT_PIXELS_TO_POINTS(__pixels__) __pixels__
+#define CC_POINT_POINTS_TO_PIXELS(__points__) __points__
 
 #endif // __MAC_OS_X_VERSION_MAX_ALLOWED
